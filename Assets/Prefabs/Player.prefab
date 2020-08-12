@@ -45,9 +45,10 @@ GameObject:
   - component: {fileID: 4974072121203962031}
   - component: {fileID: 6358447004640161991}
   - component: {fileID: 4067635268249628015}
+  - component: {fileID: 2136817270}
   m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,7 +88,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: f5f772395de5c5947a7aaaa5e13d7d27, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -176,7 +177,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 16, y: 16}
+    oldSize: {x: 20, y: 20}
     newSize: {x: 16, y: 16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -194,7 +195,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 4067635268249628017}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: cc13a5418b8d8fb4d925d6c7533da9c4, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -222,6 +223,18 @@ MonoBehaviour:
   layerGround:
     serializedVersion: 2
     m_Bits: 512
+--- !u!114 &2136817270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4067635268249628017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c4012d5c83c1b4d86e1d3556505951, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6087701803179657300
 GameObject:
   m_ObjectHideFlags: 0

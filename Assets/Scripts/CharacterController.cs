@@ -14,6 +14,7 @@ public class CharacterController : MonoBehaviour
     private Rigidbody2D _body;
     private SpriteRenderer _renderer;
     private Animator _animator;
+    private ShootFireball _shoot;
 
     [SerializeField] public LayerMask layerGround;
 
@@ -22,6 +23,7 @@ public class CharacterController : MonoBehaviour
         _body = GetComponent<Rigidbody2D>();
         _renderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
+        _shoot = GetComponent<ShootFireball>();
     }
 
     private void Update()
@@ -36,6 +38,13 @@ public class CharacterController : MonoBehaviour
             _body.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         else if (_body.velocity.y > 0 && !Input.GetButton("Jump"))
             _body.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+
+        //Attack
+        if (Input.GetKeyDown(KeyCode.F) && _isGrounded)
+        {
+            _animator.SetTrigger("Attack");
+            _shoot.Shoot();
+        }
     }
 
     private void FixedUpdate()
@@ -44,9 +53,8 @@ public class CharacterController : MonoBehaviour
         _isGrounded = Physics2D.OverlapCircle(_groundCheck_L.position, 0.5f, layerGround) || Physics2D.OverlapCircle(_groundCheck_R.position, 0.5f, layerGround);
 
         //Move player smoothly 
-        Vector2 targetVelocity = new Vector2(_inputHorizontal * speed * 60.0f * Time.fixedDeltaTime, _body.velocity.y);
-
         _inputHorizontal = Input.GetAxisRaw("Horizontal");
+        Vector2 targetVelocity = new Vector2(_inputHorizontal * speed * 60.0f * Time.fixedDeltaTime, _body.velocity.y);
         _body.velocity = targetVelocity;
 
         FlipSprite();
@@ -84,5 +92,10 @@ public class CharacterController : MonoBehaviour
         }
         else if (_isGrounded)
             _animator.SetBool("isFalling", false);
+    }
+
+    private void Interact()
+    {
+        //check collision
     }
 }
