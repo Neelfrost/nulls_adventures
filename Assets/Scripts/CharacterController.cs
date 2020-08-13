@@ -17,6 +17,7 @@ public class CharacterController : MonoBehaviour
     private ShootFireball _shoot;
 
     [SerializeField] public LayerMask layerGround;
+    [SerializeField] public LayerMask layerInteract;
 
     private void Awake()
     {
@@ -43,8 +44,11 @@ public class CharacterController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F) && _isGrounded)
         {
             _animator.SetTrigger("Attack");
-            _shoot.Shoot();
+            Interact();
         }
+
+        FlipSprite();
+        ChangeAnimations();
     }
 
     private void FixedUpdate()
@@ -56,9 +60,6 @@ public class CharacterController : MonoBehaviour
         _inputHorizontal = Input.GetAxisRaw("Horizontal");
         Vector2 targetVelocity = new Vector2(_inputHorizontal * speed * 60.0f * Time.fixedDeltaTime, _body.velocity.y);
         _body.velocity = targetVelocity;
-
-        FlipSprite();
-        ChangeAnimations();
     }
 
     private void FlipSprite()
@@ -96,6 +97,22 @@ public class CharacterController : MonoBehaviour
 
     private void Interact()
     {
-        //check collision
+        //Cast a ray to check for interactables
+        RaycastHit2D interactable = Physics2D.Raycast(transform.position, Vector2.right * _lookDir, 15.0f, layerInteract);
+
+        if (interactable.collider != null)
+        {
+            //Here we call the respective methods
+            if (interactable.collider.tag == "Fire")
+                interactable.collider.GetComponent<ShootFireball>().Shoot(_lookDir);
+            else if (interactable.collider.tag == "Redirector")
+                interactable.collider.GetComponentInParent<Redirector>().Rotate();
+        }
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.right * _lookDir * 15.0f);
+    }
+
 }
