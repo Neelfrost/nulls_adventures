@@ -98,7 +98,7 @@ public class CharacterController : MonoBehaviour
     private void Interact()
     {
         //Cast a ray to check for interactables
-        RaycastHit2D interactable = Physics2D.Raycast(transform.position, Vector2.right * _lookDir, 15.0f, layerInteract);
+        RaycastHit2D interactable = Physics2D.Raycast(transform.position, Vector2.right * _lookDir, 13.0f, layerInteract);
 
         if (interactable.collider != null)
         {
@@ -109,10 +109,4 @@ public class CharacterController : MonoBehaviour
                 interactable.collider.GetComponentInParent<Redirector>().Rotate();
         }
     }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.right * _lookDir * 15.0f);
-    }
-
 }

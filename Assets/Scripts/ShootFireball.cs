@@ -1,16 +1,32 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ShootFireball : MonoBehaviour
 {
     public float speed = 100.0f;
     private Rigidbody2D _body;
+    private ParticleSystem _system;
 
     private void Awake()
     {
         _body = GetComponent<Rigidbody2D>();
+        _system = GetComponent<ParticleSystem>();
     }
+
+    private void Update()
+    {
+        if (!_system.IsAlive())
+            Destroy(_body.gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Untagged")
+        {
+            _system.Stop();
+        }
+    }
+
+    //Instantiates a clone of the ball in the given dir
     public void Shoot(int dir)
     {
         Rigidbody2D _projectile;
@@ -19,11 +35,28 @@ public class ShootFireball : MonoBehaviour
         _projectile.AddForce(new Vector2(speed * Mathf.Sign(dir), 0.0f), ForceMode2D.Impulse);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    //Redirects ball according to redirector's orientation
+    //Returns true if ball can be redirected, to trigger animation
+    public bool Redirect(Vector3 redirectFrom, Transform center)
     {
-        if (other.tag == "Untagged")
+        //Here we calculate the direction to redirect the ball to,
+        Vector2 redirectTo = _body.velocity.normalized + (Vector2)redirectFrom;
+
+        //If the ball travels in a non - redirectable direction,
+        //stop emitting particles and destroy ball
+        if (redirectTo.magnitude != 1)
         {
-            Destroy(gameObject);
+            _body.velocity = new Vector2(0.0f, 0.0f);
+            _system.Stop();
         }
+        else
+        {
+            //Redirect the ball
+            _body.velocity = _body.velocity.magnitude * (redirectTo);
+            //Tweak the position of the ball to redirector's center
+            _body.transform.position = center.position;
+        }
+
+        return (redirectTo.magnitude == 1);
     }
 }

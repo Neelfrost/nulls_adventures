@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4150878340612151680}
   - component: {fileID: 4150878340612151681}
   - component: {fileID: 4150878340612151710}
-  - component: {fileID: 1484259677289322854}
   - component: {fileID: 8807645300666872943}
+  - component: {fileID: 1484259677289322854}
   - component: {fileID: 2033310675}
   m_Layer: 10
   m_Name: Ball
@@ -4815,22 +4815,6 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!58 &1484259677289322854
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4150878340612151711}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 4
 --- !u!50 &8807645300666872943
 Rigidbody2D:
   serializedVersion: 4
@@ -4852,6 +4836,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!58 &1484259677289322854
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4150878340612151711}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 4
 --- !u!114 &2033310675
 MonoBehaviour:
   m_ObjectHideFlags: 0

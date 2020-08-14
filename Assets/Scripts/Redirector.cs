@@ -3,50 +3,54 @@
 public class Redirector : MonoBehaviour
 {
     private Animator _animator;
-    private Vector3 _redirectTo;
+    private Vector3 _redirectFrom;
+    private Transform _center;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        Debug.Log(transform.eulerAngles.z + gameObject.name);
+
+        //Child's transfrom is at an offset of (2,2) from parent,
+        //used to tweak the ball position
+        _center = transform.GetChild(0);
     }
 
+    //Get the orientation of redirector
     private void Start()
     {
         switch ((int)transform.eulerAngles.z)
         {
             case 0:
-                _redirectTo = new Vector3(1.0f, 1.0f, 0.0f);
+                _redirectFrom = new Vector3(1.0f, 1.0f, 0.0f);
                 break;
             case 270:
-                _redirectTo = new Vector3(1.0f, -1.0f, 0.0f);
+                _redirectFrom = new Vector3(1.0f, -1.0f, 0.0f);
                 break;
             case 180:
-                _redirectTo = new Vector3(-1.0f, -1.0f, 0.0f);
+                _redirectFrom = new Vector3(-1.0f, -1.0f, 0.0f);
                 break;
             case 90:
-                _redirectTo = new Vector3(-1.0f, 1.0f, 0.0f);
+                _redirectFrom = new Vector3(-1.0f, 1.0f, 0.0f);
                 break;
         }
-        // Debug.Log(_redirectTo );
     }
 
+    //Rotates along z axis 
     public void Rotate()
     {
         transform.Rotate(Vector3.forward * -90.0f);
-        _redirectTo = Vector3.Cross(Vector3.back, _redirectTo);
+        _redirectFrom = Vector3.Cross(Vector3.back, _redirectFrom);
     }
 
-
+    //Redirect incoming ball
     private void OnTriggerEnter2D(Collider2D other)
     {
 
         if (other.tag == "Fire")
         {
-            _animator.SetTrigger("Hit");
-
-            Rigidbody2D ball = other.GetComponent<Rigidbody2D>();
-            ball.velocity = ball.velocity.magnitude * (ball.velocity.normalized + (Vector2)_redirectTo);
+            if (other.GetComponent<ShootFireball>().Redirect(_redirectFrom, _center))
+                //Play hit animation
+                _animator.SetTrigger("Hit");
         }
     }
 }
