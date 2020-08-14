@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ShootFireball : MonoBehaviour
+public class NullFire : MonoBehaviour
 {
     public float speed = 100.0f;
     private Rigidbody2D _body;
@@ -20,7 +20,7 @@ public class ShootFireball : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Untagged")
+        if (other.CompareTag("Untagged") || other.CompareTag("NullSwitch"))
         {
             _system.Stop();
         }
@@ -41,10 +41,11 @@ public class ShootFireball : MonoBehaviour
     {
         //Here we calculate the direction to redirect the ball to,
         Vector2 redirectTo = _body.velocity.normalized + (Vector2)redirectFrom;
+        float redirectToMagnitude = redirectTo.magnitude;
 
         //If the ball travels in a non - redirectable direction,
         //stop emitting particles and destroy ball
-        if (redirectTo.magnitude != 1)
+        if (redirectToMagnitude != 1)
         {
             _body.velocity = new Vector2(0.0f, 0.0f);
             _system.Stop();
@@ -57,6 +58,6 @@ public class ShootFireball : MonoBehaviour
             _body.transform.position = center.position;
         }
 
-        return (redirectTo.magnitude == 1);
+        return (redirectToMagnitude == 1);
     }
 }

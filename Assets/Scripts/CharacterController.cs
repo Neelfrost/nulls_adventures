@@ -14,7 +14,6 @@ public class CharacterController : MonoBehaviour
     private Rigidbody2D _body;
     private SpriteRenderer _renderer;
     private Animator _animator;
-    private ShootFireball _shoot;
 
     [SerializeField] public LayerMask layerGround;
     [SerializeField] public LayerMask layerInteract;
@@ -24,7 +23,6 @@ public class CharacterController : MonoBehaviour
         _body = GetComponent<Rigidbody2D>();
         _renderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
-        _shoot = GetComponent<ShootFireball>();
     }
 
     private void Update()
@@ -103,9 +101,9 @@ public class CharacterController : MonoBehaviour
         if (interactable.collider != null)
         {
             //Here we call the respective methods
-            if (interactable.collider.tag == "Fire")
-                interactable.collider.GetComponent<ShootFireball>().Shoot(_lookDir);
-            else if (interactable.collider.tag == "Redirector")
+            if (interactable.collider.CompareTag("Fire"))
+                interactable.collider.GetComponent<NullFire>().Shoot(_lookDir);
+            else if (interactable.collider.CompareTag("Redirector"))
                 interactable.collider.GetComponentInParent<Redirector>().Rotate();
         }
     }

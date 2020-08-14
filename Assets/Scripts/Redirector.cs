@@ -46,9 +46,9 @@ public class Redirector : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
 
-        if (other.tag == "Fire")
+        if (other.CompareTag("Fire"))
         {
-            if (other.GetComponent<ShootFireball>().Redirect(_redirectFrom, _center))
+            if (other.GetComponent<NullFire>().Redirect(_redirectFrom, _center))
                 //Play hit animation
                 _animator.SetTrigger("Hit");
         }

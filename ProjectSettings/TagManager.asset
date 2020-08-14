@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Fire
   - Redirector
+  - Platform
+  - NullSwitch
   layers:
   - Default
   - TransparentFX
