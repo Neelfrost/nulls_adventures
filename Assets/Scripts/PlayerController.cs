@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CharacterController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public float speed = 75;
     public float jumpSpeed = 120;
@@ -10,6 +10,8 @@ public class CharacterController : MonoBehaviour
     private int _lookDir;
     private bool _isGrounded;
 
+    public Transform _slashTransform;
+    public SpriteRenderer _slashRenderer;
     public Transform _groundCheck_L, _groundCheck_R;
     private Rigidbody2D _body;
     private SpriteRenderer _renderer;
@@ -66,11 +68,16 @@ public class CharacterController : MonoBehaviour
         {
             _lookDir = 1;
             _renderer.flipX = false;
+            _slashRenderer.flipX = false;
+            _slashTransform.localPosition = new Vector3(16.0f, 0.0f, 0.0f);
         }
         else if (_inputHorizontal == -1)
         {
             _lookDir = -1;
             _renderer.flipX = true;
+            _slashRenderer.flipX = true;
+            _slashTransform.localPosition = new Vector3(-16.0f, 0.0f, 0.0f);
+
         }
     }
 

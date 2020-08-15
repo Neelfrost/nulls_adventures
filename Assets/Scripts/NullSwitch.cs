@@ -4,7 +4,7 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 public class NullSwitch : MonoBehaviour
 {
-    public GameObject[] _platforms;
+    public GameObject[] target;
     private Animator _animator;
 
     private Light2D _light;
@@ -21,13 +21,15 @@ public class NullSwitch : MonoBehaviour
         {
             _animator.SetTrigger("isActive");
             _light.enabled = true;
-            StartCoroutine(Activate());
+
+            if (target != null)
+                StartCoroutine(Activate());
         }
     }
 
     IEnumerator Activate()
     {
-        foreach (GameObject platform in _platforms)
+        foreach (GameObject platform in target)
         {
             platform.GetComponent<Platform>().Activate();
             yield return new WaitForSeconds(0.2f);
