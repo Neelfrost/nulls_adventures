@@ -43,7 +43,7 @@ GameObject:
   m_Layer: 8
   m_Name: Slash
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 4067635268249628018}
   - component: {fileID: 4067635268249628019}
   - component: {fileID: 4974072121203962031}
-  - component: {fileID: 6358447004640161991}
+  - component: {fileID: 1787293491}
   - component: {fileID: 3941378333961770345}
   - component: {fileID: 1435192185}
   m_Layer: 8
@@ -238,7 +238,7 @@ Rigidbody2D:
   m_LinearDrag: 1
   m_AngularDrag: 0
   m_GravityScale: 10
-  m_Material: {fileID: 6200000, guid: cc13a5418b8d8fb4d925d6c7533da9c4, type: 2}
+  m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -252,11 +252,11 @@ BoxCollider2D:
   m_GameObject: {fileID: 4067635268249628017}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: cc13a5418b8d8fb4d925d6c7533da9c4, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1.5067711}
+  m_Offset: {x: 0, y: 1.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -267,10 +267,10 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 12.3, y: 9.037636}
+  m_Size: {x: 9, y: 9}
   m_EdgeRadius: 0
---- !u!58 &6358447004640161991
-CircleCollider2D:
+--- !u!70 &1787293491
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -278,13 +278,13 @@ CircleCollider2D:
   m_GameObject: {fileID: 4067635268249628017}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: cc13a5418b8d8fb4d925d6c7533da9c4, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -2.07}
-  serializedVersion: 2
-  m_Radius: 6
+  m_Offset: {x: 0, y: -5.5}
+  m_Size: {x: 10, y: 5}
+  m_Direction: 1
 --- !u!114 &3941378333961770345
 MonoBehaviour:
   m_ObjectHideFlags: 0

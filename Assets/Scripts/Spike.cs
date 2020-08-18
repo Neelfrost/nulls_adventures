@@ -10,7 +10,9 @@ public class Spike : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponent<PlayerStats>().Damage(0.5f);
-            other.attachedRigidbody.velocity = new Vector2(0.0f, 75.0f);
+
+            Vector2 velocity = new Vector2(0, 100.0f);
+            other.attachedRigidbody.velocity = velocity;
         }
     }
     // private void OnTriggerStay2D(Collider2D other)

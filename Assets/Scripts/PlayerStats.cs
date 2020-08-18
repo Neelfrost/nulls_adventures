@@ -3,14 +3,8 @@ using UnityEngine.UI;
 public class PlayerStats : MonoBehaviour
 {
     public Slider _healthBar;
-    private Animator _animator;
     private float _maxHealth = 10;
     private float _currentHealth;
-
-    private void Awake()
-    {
-        _animator = GetComponent<Animator>();
-    }
 
     private void Start()
     {
@@ -31,7 +25,6 @@ public class PlayerStats : MonoBehaviour
 
     public void Damage(float amount)
     {
-        _animator.SetTrigger("Hurt");
         _currentHealth -= amount;
     }
 }

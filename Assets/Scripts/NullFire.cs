@@ -30,7 +30,10 @@ public class NullFire : MonoBehaviour
     public void Shoot(int dir)
     {
         Rigidbody2D _projectile;
+
         _projectile = Instantiate(_body, _body.transform.position, Quaternion.identity);
+
+        // Reduce the collider size
         _projectile.GetComponent<CircleCollider2D>().radius = 1.0f;
         _projectile.AddForce(new Vector2(speed * Mathf.Sign(dir), 0.0f), ForceMode2D.Impulse);
     }

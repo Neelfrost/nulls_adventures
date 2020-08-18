@@ -60,6 +60,8 @@ public class PlayerController : MonoBehaviour
         _inputHorizontal = Input.GetAxisRaw("Horizontal");
         Vector2 targetVelocity = new Vector2(_inputHorizontal * speed * 60.0f * Time.fixedDeltaTime, _body.velocity.y);
         _body.velocity = targetVelocity;
+
+        Debug.Log(_body.velocity);
     }
 
     private void FlipSprite()
@@ -88,10 +90,10 @@ public class PlayerController : MonoBehaviour
         else
             _animator.SetBool("isRunning", false);
 
-        if (_body.velocity.y > 0)
+        if (_body.velocity.y > 0.5 && !_animator.GetBool("isFalling"))
             _animator.SetBool("isJumping", true);
 
-        if (_body.velocity.y < 0)
+        if (_body.velocity.y < -0.5)
         {
             _animator.SetBool("isJumping", false);
             _animator.SetBool("isFalling", true);
@@ -103,7 +105,7 @@ public class PlayerController : MonoBehaviour
     private void Interact()
     {
         //Cast a ray to check for interactables
-        RaycastHit2D interactable = Physics2D.Raycast(transform.position, Vector2.right * _lookDir, 13.0f, layerInteract);
+        RaycastHit2D interactable = Physics2D.Raycast(transform.position, Vector2.right * _lookDir, 16.0f, layerInteract);
 
         if (interactable.collider != null)
         {
