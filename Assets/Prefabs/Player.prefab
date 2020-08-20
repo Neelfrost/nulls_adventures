@@ -305,12 +305,6 @@ MonoBehaviour:
   _slashRenderer: {fileID: 1118717338052629544}
   _groundCheck_L: {fileID: 7976458441358938639}
   _groundCheck_R: {fileID: 2131939357136764372}
-  layerGround:
-    serializedVersion: 2
-    m_Bits: 512
-  layerInteract:
-    serializedVersion: 2
-    m_Bits: 1024
 --- !u!114 &1435192185
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,62 +1,73 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
-    public LayerMask layerGround;
-    private Rigidbody2D _body;
+    public static Transform trigger;
+
+    public GameObject projectile;
     private SpriteRenderer _renderer;
-    private Animator _animator;
+    private Slider _slider;
+    private Image[] _healthBar;
 
-    public float speed = 32.0f;
-    private int _lookDir = 1;
-    private bool _isMoving = false;
+    private Color _originalColor;
+    private float _maxHealth = 10;
+    private float _currentHealth;
 
-    private void Awake()
+    private void Start()
     {
-        _body = GetComponent<Rigidbody2D>();
+        _slider = GetComponentInChildren<Slider>();
+        _healthBar = GetComponentsInChildren<Image>();
+
+        trigger = transform.GetChild(0);
+
+        _currentHealth = _maxHealth;
+        _slider.maxValue = _maxHealth;
+        _slider.value = _currentHealth;
+
         _renderer = GetComponent<SpriteRenderer>();
-        _animator = GetComponent<Animator>();
+        _originalColor = _renderer.color;
+
     }
 
     private void Update()
     {
-        _isMoving = _body.velocity.magnitude != 0.0f ? true : false;
-        _animator.SetBool("isMoving", _isMoving);
+        _slider.value = _currentHealth;
     }
 
-    private void FixedUpdate()
+    public void Damage(float amount)
     {
-        Move();
-    }
-
-    private void Move()
-    {
-        RaycastHit2D groundCheck = Physics2D.Raycast(transform.position, Vector3.right * _lookDir + Vector3.down, 16.0f, layerGround);
-        RaycastHit2D wallCheck = Physics2D.Raycast(transform.position, Vector3.right * _lookDir, 16.0f, layerGround);
-
-        if (groundCheck.collider != null)
+        if (_currentHealth > 0)
         {
-            _body.velocity = Vector3.right * _lookDir * speed * 60.0f * Time.fixedDeltaTime;
+            _currentHealth -= amount;
+            StartCoroutine(Flash());
+            StartCoroutine(Display());
         }
         else
-        {
-            _renderer.flipX = !_renderer.flipX;
-            _lookDir = _lookDir == 1 ? -1 : 1;
-        }
+            Destroy(gameObject);
 
-        if (wallCheck.collider != null)
-        {
-            _renderer.flipX = !_renderer.flipX;
-            _lookDir = _lookDir == 1 ? -1 : 1;
-        }
-
+        GetComponent<Animator>().SetBool("isAttacking", true);
     }
 
-    private void OnDrawGizmos()
+    IEnumerator Display()
     {
-        Gizmos.DrawLine(transform.position, transform.position + (Vector3.right * _lookDir + Vector3.down) * 16.0f);
-        Gizmos.DrawLine(transform.position, transform.position + (Vector3.right * _lookDir) * 16.0f);
+        _healthBar[0].enabled = true;
+        _healthBar[1].enabled = true;
+        yield return new WaitForSeconds(0.5f);
+        _healthBar[0].enabled = false;
+        _healthBar[1].enabled = false;
     }
+
+    IEnumerator Flash()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            _renderer.color = Color.grey;
+            yield return new WaitForSeconds(0.1f);
+            _renderer.color = _originalColor;
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
 }

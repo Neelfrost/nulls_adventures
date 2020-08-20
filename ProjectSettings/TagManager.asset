@@ -9,6 +9,7 @@ TagManager:
   - Platform
   - NullSwitch
   - Enemy
+  - Projectile
   layers:
   - Default
   - TransparentFX

@@ -2,6 +2,8 @@
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
+
     public float speed = 75;
     public float jumpSpeed = 120;
     public float fallMultiplier = 3.0f;
@@ -16,15 +18,17 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _body;
     private SpriteRenderer _renderer;
     private Animator _animator;
-
-    [SerializeField] public LayerMask layerGround;
-    [SerializeField] public LayerMask layerInteract;
+    private LayerMask _layerGround;
+    private LayerMask _layerInteract;
 
     private void Awake()
     {
+        instance = this;
         _body = GetComponent<Rigidbody2D>();
         _renderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
+        _layerGround = LayerMask.GetMask("Ground");
+        _layerInteract = LayerMask.GetMask("Interact");
     }
 
     private void Update()
@@ -54,7 +58,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         //Check for ground
-        _isGrounded = Physics2D.OverlapCircle(_groundCheck_L.position, 0.5f, layerGround) || Physics2D.OverlapCircle(_groundCheck_R.position, 0.5f, layerGround);
+        _isGrounded = Physics2D.OverlapCircle(_groundCheck_L.position, 0.5f, _layerGround) || Physics2D.OverlapCircle(_groundCheck_R.position, 0.5f, _layerGround);
 
         //Move player smoothly 
         _inputHorizontal = Input.GetAxisRaw("Horizontal");
@@ -69,14 +73,14 @@ public class PlayerController : MonoBehaviour
             _lookDir = 1;
             _renderer.flipX = false;
             _slashRenderer.flipX = false;
-            _slashTransform.localPosition = new Vector3(16.0f, 0.0f, 0.0f);
+            _slashTransform.localPosition = Vector3.right * 16.0f;
         }
         else if (_inputHorizontal == -1)
         {
             _lookDir = -1;
             _renderer.flipX = true;
             _slashRenderer.flipX = true;
-            _slashTransform.localPosition = new Vector3(-16.0f, 0.0f, 0.0f);
+            _slashTransform.localPosition = Vector3.right * -16.0f;
 
         }
     }
@@ -103,7 +107,7 @@ public class PlayerController : MonoBehaviour
     private void Interact()
     {
         //Cast a ray to check for interactables
-        RaycastHit2D interactable = Physics2D.Raycast(transform.position, Vector2.right * _lookDir, 16.0f, layerInteract);
+        RaycastHit2D interactable = Physics2D.Raycast(transform.position, Vector2.right * _lookDir, 16.0f, _layerInteract);
 
         if (interactable.collider != null)
         {
@@ -112,6 +116,8 @@ public class PlayerController : MonoBehaviour
                 interactable.collider.GetComponent<NullFire>().Shoot(_lookDir);
             else if (interactable.collider.CompareTag("Redirector"))
                 interactable.collider.GetComponentInParent<Redirector>().Rotate();
+            else if (interactable.collider.CompareTag("Enemy"))
+                interactable.collider.GetComponent<Enemy>().Damage(1.1f);
         }
     }
 }
