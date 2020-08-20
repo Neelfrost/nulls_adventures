@@ -60,8 +60,6 @@ public class PlayerController : MonoBehaviour
         _inputHorizontal = Input.GetAxisRaw("Horizontal");
         Vector2 targetVelocity = new Vector2(_inputHorizontal * speed * 60.0f * Time.fixedDeltaTime, _body.velocity.y);
         _body.velocity = targetVelocity;
-
-        Debug.Log(_body.velocity);
     }
 
     private void FlipSprite()
