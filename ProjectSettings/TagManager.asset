@@ -11,6 +11,8 @@ TagManager:
   - Enemy
   - Projectile
   - PlayerStats
+  - Pushblock
+  - Beacon
   layers:
   - Default
   - TransparentFX

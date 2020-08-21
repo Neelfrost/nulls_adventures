@@ -393,6 +393,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 7650539025102784843, guid: 34247cdbc47c7a1468a19cea32848f08, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 7650539025102784845, guid: 34247cdbc47c7a1468a19cea32848f08, type: 3}
       propertyPath: m_text
       value: Stand on the Pressure Plate to proceed.
@@ -13013,6 +13017,10 @@ PrefabInstance:
       propertyPath: targets.Array.data[0]
       value: 
       objectReference: {fileID: 1009523510}
+    - target: {fileID: 2980068471441789455, guid: 7a095d4151b385444a9142789d01b192, type: 3}
+      propertyPath: canBePressedByPlayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2980068471441789456, guid: 7a095d4151b385444a9142789d01b192, type: 3}
       propertyPath: m_Name
       value: PressurePlate
