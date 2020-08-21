@@ -4,10 +4,12 @@ using UnityEngine.UI;
 public class PlayerStats : MonoBehaviour
 {
     public Slider _healthBar;
+    private Color _originalColor;
+    private SpriteRenderer _renderer;
+
     private float _maxHealth = 10;
     private float _currentHealth;
-    private SpriteRenderer _renderer;
-    private Color _originalColor;
+    private bool _invulnerable;
 
     private void Start()
     {
@@ -31,18 +33,23 @@ public class PlayerStats : MonoBehaviour
 
     public void Damage(float amount)
     {
-        _currentHealth -= amount;
-        StartCoroutine(Flash());
+        if (!_invulnerable)
+        {
+            _currentHealth -= amount;
+            StartCoroutine(Flash());
+        }
     }
 
     IEnumerator Flash()
     {
         for (int i = 0; i < 2; i++)
         {
+            _invulnerable = true;
             _renderer.color = Color.grey;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.05f);
             _renderer.color = _originalColor;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.05f);
+            _invulnerable = false;
         }
     }
 }

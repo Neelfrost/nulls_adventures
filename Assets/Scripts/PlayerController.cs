@@ -39,13 +39,13 @@ public class PlayerController : MonoBehaviour
             _body.velocity = Vector2.up * jumpSpeed;
         }
 
-        if (_body.velocity.y < 0)
+        if (_body.velocity.y < -1.5f)
             _body.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-        else if (_body.velocity.y > 0 && !Input.GetButton("Jump"))
+        else if (_body.velocity.y > 1.5f && !Input.GetButton("Jump"))
             _body.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
 
         //Attack
-        if (Input.GetKeyDown(KeyCode.F) && _isGrounded)
+        if (Input.GetKeyDown(KeyCode.F))
         {
             _animator.SetTrigger("Attack");
             Interact();
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         //Check for ground
-        _isGrounded = Physics2D.OverlapCircle(_groundCheck_L.position, 0.5f, _layerGround) || Physics2D.OverlapCircle(_groundCheck_R.position, 0.5f, _layerGround);
+        _isGrounded = Physics2D.OverlapCircle(_groundCheck_L.position, 0.75f, _layerGround) || Physics2D.OverlapCircle(_groundCheck_R.position, 0.75f, _layerGround);
 
         //Move player smoothly 
         _inputHorizontal = Input.GetAxisRaw("Horizontal");
@@ -92,10 +92,10 @@ public class PlayerController : MonoBehaviour
         else
             _animator.SetBool("isRunning", false);
 
-        if (_body.velocity.y > 0.5 && !_animator.GetBool("isFalling"))
+        if (_body.velocity.y > 1.5f && !_animator.GetBool("isFalling"))
             _animator.SetBool("isJumping", true);
 
-        if (_body.velocity.y < -0.5)
+        if (_body.velocity.y < -1.5f)
         {
             _animator.SetBool("isJumping", false);
             _animator.SetBool("isFalling", true);

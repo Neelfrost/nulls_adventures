@@ -15,7 +15,6 @@ public class EnemyWalk : StateMachineBehaviour
     private float _patrolTime;
     private bool _isInstantiated = false;
 
-
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (!_isInstantiated)

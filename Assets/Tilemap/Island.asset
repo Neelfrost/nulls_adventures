@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 535f8e525ff367c4ba67961e201a05ed, type: 3}
-  m_Name: BeamWithTop
+  m_Name: Island
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -35,5 +35,6 @@ MonoBehaviour:
   m_Flags: 1
   m_ColliderType: 1
   m_Sprites:
-  - {fileID: 2780721946522791409, guid: 96e28a56d537bb5409f2c284fbdc3b39, type: 3}
-  - {fileID: -5306222101598433859, guid: 96e28a56d537bb5409f2c284fbdc3b39, type: 3}
+  - {fileID: -399241683001391418, guid: 96e28a56d537bb5409f2c284fbdc3b39, type: 3}
+  - {fileID: 2104304057959676678, guid: 96e28a56d537bb5409f2c284fbdc3b39, type: 3}
+  - {fileID: 3655051225127993968, guid: 96e28a56d537bb5409f2c284fbdc3b39, type: 3}

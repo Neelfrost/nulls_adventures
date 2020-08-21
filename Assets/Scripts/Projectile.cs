@@ -3,6 +3,8 @@
 public class Projectile : MonoBehaviour
 {
     public float speed;
+    private float _timer;
+    private float _maxLife = 5.0f;
     private Rigidbody2D _body;
 
     private void Awake()
@@ -12,13 +14,18 @@ public class Projectile : MonoBehaviour
 
     private void Start()
     {
-        Vector2 direction = PlayerController.instance.transform.position - Enemy.trigger.position;
-        _body.velocity = direction.normalized * speed * 60.0f * Time.deltaTime;
+        Vector2 direction = PlayerController.instance.transform.position - transform.position;
+        _body.AddForce(direction.normalized * speed * 60.0f * Time.deltaTime);
+
+        _timer = 0;
     }
 
     private void Update()
     {
-        speed += (1 / 8) * Time.deltaTime;
+        _timer += Time.deltaTime;
+
+        if (_timer > _maxLife)
+            Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

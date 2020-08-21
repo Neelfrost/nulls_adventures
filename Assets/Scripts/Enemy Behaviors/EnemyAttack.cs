@@ -1,12 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyAttack : StateMachineBehaviour
 {
     private GameObject _player;
     private SpriteRenderer _renderer;
     private GameObject _projectile;
+    private Transform _trigger;
 
     public float _stopRange;
     public float _fireRate;
@@ -23,6 +22,7 @@ public class EnemyAttack : StateMachineBehaviour
         {
             _player = PlayerController.instance.gameObject;
             _renderer = animator.GetComponent<SpriteRenderer>();
+            _trigger = animator.GetComponent<Enemy>().trigger;
             _projectile = animator.GetComponent<Enemy>().projectile;
             _isInstantiated = true;
         }
@@ -41,11 +41,11 @@ public class EnemyAttack : StateMachineBehaviour
 
         _lookDir = 1 * (int)Mathf.Sign(toPlayer.x);
 
-        if (toPlayer.magnitude > _stopRange)
+        if (toPlayer.magnitude > _stopRange * 1.5f)
             animator.SetBool("isChasing", true);
         else
         {
-            if (_timer > _fireRate)
+            if (_timer >= _fireRate)
             {
                 Shoot();
                 _timer = 0;
@@ -55,12 +55,12 @@ public class EnemyAttack : StateMachineBehaviour
         if (_lookDir == 1)
         {
             _renderer.flipX = false;
-            Enemy.trigger.localPosition = Vector2.right * 8.0f;
+            _trigger.localPosition = Vector2.right * 8.0f;
         }
         else
         {
             _renderer.flipX = true;
-            Enemy.trigger.localPosition = Vector2.right * -8.0f;
+            _trigger.localPosition = Vector2.right * -8.0f;
         }
     }
 
@@ -71,6 +71,6 @@ public class EnemyAttack : StateMachineBehaviour
 
     private void Shoot()
     {
-        Instantiate(_projectile, Enemy.trigger.position, Quaternion.identity);
+        Instantiate(_projectile, _trigger.position, Quaternion.identity);
     }
 }
