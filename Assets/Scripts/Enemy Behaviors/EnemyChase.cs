@@ -24,7 +24,7 @@ public class EnemyChase : StateMachineBehaviour
     {
         if (!_isInstantiated)
         {
-            _player = PlayerController.instance.gameObject;
+            _player = PlayerController.Instance.gameObject;
             _body = animator.GetComponent<Rigidbody2D>();
             _renderer = animator.GetComponent<SpriteRenderer>();
             _layerGround = LayerMask.GetMask("Ground");

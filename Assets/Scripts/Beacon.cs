@@ -7,15 +7,17 @@ public class Beacon : MonoBehaviour
 
     public void Activate()
     {
-        StartCoroutine(Start());
+        StartCoroutine(StartActivating());
     }
 
-    IEnumerator Start()
+    IEnumerator StartActivating()
     {
         foreach (SpriteRenderer sprite in _sprites)
         {
             sprite.enabled = !sprite.enabled;
-            yield return new WaitForSeconds(1.0f / 12.0f);
+            yield return new WaitForSeconds(1.0f / 6.0f);
         }
+        yield return new WaitForSeconds(5.0f);
+        GameManager.Instance.LoadScene();
     }
 }

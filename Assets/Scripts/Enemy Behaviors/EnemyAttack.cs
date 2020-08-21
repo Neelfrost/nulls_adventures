@@ -20,7 +20,7 @@ public class EnemyAttack : StateMachineBehaviour
     {
         if (!_isInstantiated)
         {
-            _player = PlayerController.instance.gameObject;
+            _player = PlayerController.Instance.gameObject;
             _renderer = animator.GetComponent<SpriteRenderer>();
             _trigger = animator.GetComponent<Enemy>().trigger;
             _projectile = animator.GetComponent<Enemy>().projectile;

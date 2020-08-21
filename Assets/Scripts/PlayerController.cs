@@ -2,7 +2,7 @@
 
 public class PlayerController : MonoBehaviour
 {
-    public static PlayerController instance;
+    public static PlayerController Instance;
 
     public float speed = 75;
     public float jumpSpeed = 120;
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        Instance = this;
         _body = GetComponent<Rigidbody2D>();
         _renderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();

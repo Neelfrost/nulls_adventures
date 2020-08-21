@@ -14,7 +14,7 @@ public class Projectile : MonoBehaviour
 
     private void Start()
     {
-        Vector2 direction = PlayerController.instance.transform.position - transform.position;
+        Vector2 direction = PlayerController.Instance.transform.position - transform.position;
         _body.AddForce(direction.normalized * speed * 60.0f * Time.deltaTime);
 
         _timer = 0;

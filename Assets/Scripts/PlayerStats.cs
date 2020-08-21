@@ -3,39 +3,50 @@ using UnityEngine;
 using UnityEngine.UI;
 public class PlayerStats : MonoBehaviour
 {
-    public Slider _healthBar;
+    public static PlayerStats Instance;
+
+    private Slider _slider;
     private Color _originalColor;
     private SpriteRenderer _renderer;
 
-    private float _maxHealth = 10;
-    private float _currentHealth;
+    public float currentHealth;
+    private float _maxHealth;
     private bool _invulnerable;
 
     private void Start()
     {
-        _renderer = GetComponent<SpriteRenderer>();
-        _originalColor = _renderer.color;
+        Instance = this;
 
-        _currentHealth = _maxHealth;
-        _healthBar.maxValue = _maxHealth;
-        _healthBar.value = _currentHealth;
+        _renderer = GetComponent<SpriteRenderer>(); // Find refernce to player
+        _slider = GameObject.FindGameObjectWithTag("PlayerStats").GetComponentInChildren<Slider>(); // Get slider component from healthbar
+
+        _originalColor = _renderer.color; // Get a reference to sprite's original color, used later for blink on damage
+
+        _maxHealth = StatsTracker.Instance.maxHealth;
+        currentHealth = StatsTracker.Instance.currentHealth;
+
+        _slider.maxValue = _maxHealth;
+        _slider.value = currentHealth;
     }
 
     private void Update()
     {
-        _healthBar.value = _currentHealth;
+        _slider.value = currentHealth;
+
+        if (Input.GetKeyDown(KeyCode.Keypad0))
+            Damage(1.0f);
     }
 
     public void Heal(float amount)
     {
-        _currentHealth += amount;
+        currentHealth += amount;
     }
 
     public void Damage(float amount)
     {
         if (!_invulnerable)
         {
-            _currentHealth -= amount;
+            currentHealth -= amount;
             StartCoroutine(Flash());
         }
     }
