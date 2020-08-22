@@ -15,12 +15,12 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
-        if (enemyCount == 1)
+        if (_currentScene == 3 && enemyCount == 1)
         {
             GameObject[] spouts = GameObject.FindGameObjectsWithTag("Spout");
             foreach (var spout in spouts)
             {
-                spout.GetComponent<Spout>().TriggerAnimation();
+                spout.GetComponent<Spout>().Activate();
             }
         }
     }

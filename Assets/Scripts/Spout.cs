@@ -11,7 +11,7 @@ public class Spout : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    public void TriggerAnimation()
+    public void Activate()
     {
         if (!_hasBeenActivated)
         {

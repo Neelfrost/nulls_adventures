@@ -35,6 +35,8 @@ public class NullSwitch : MonoBehaviour
                 target.GetComponent<Beacon>().Activate();
             else if (target.CompareTag("Platform"))
                 target.GetComponent<Platform>().Activate();
+            else if (target.CompareTag("Spout"))
+                target.GetComponent<Spout>().Activate();
             yield return new WaitForSeconds(0.2f);
         }
     }
