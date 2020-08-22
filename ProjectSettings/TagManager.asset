@@ -14,6 +14,7 @@ TagManager:
   - Pushblock
   - Beacon
   - Spout
+  - Guide
   layers:
   - Default
   - TransparentFX

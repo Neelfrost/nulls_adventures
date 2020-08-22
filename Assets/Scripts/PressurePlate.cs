@@ -34,7 +34,7 @@ public class PressurePlate : MonoBehaviour
 
     IEnumerator StartActivating()
     {
-        foreach (GameObject target in targets)
+        foreach (var target in targets)
         {
             if (target.CompareTag("Beacon"))
                 target.GetComponent<Beacon>().Activate();

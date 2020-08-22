@@ -4,7 +4,7 @@ public class EnemyWalk : StateMachineBehaviour
 {
     private Rigidbody2D _body;
     private SpriteRenderer _renderer;
-    private LayerMask _layerGround, _layerPlayer;
+    private LayerMask _layerGround, _layerPlayer, _layerInteract;
 
 
     public float speed = 32.0f;
@@ -23,6 +23,7 @@ public class EnemyWalk : StateMachineBehaviour
             _renderer = animator.GetComponent<SpriteRenderer>();
             _layerGround = LayerMask.GetMask("Ground");
             _layerPlayer = LayerMask.GetMask("Player");
+            _layerInteract = LayerMask.GetMask("Interact");
             _isInstantiated = true;
         }
 
@@ -55,9 +56,11 @@ public class EnemyWalk : StateMachineBehaviour
         {
             RaycastHit2D groundCheck = Physics2D.Raycast(animator.transform.position, Vector3.right * _lookDir * 2.0f + Vector3.down, 18.0f, _layerGround);
             RaycastHit2D wallCheck = Physics2D.Raycast(animator.transform.position, Vector3.right * _lookDir, 16.0f, _layerGround);
+            RaycastHit2D interactCheck = Physics2D.Raycast(animator.transform.position, Vector3.right * _lookDir, 18.0f, _layerInteract);
             RaycastHit2D playerCheck = Physics2D.Raycast(animator.transform.position, Vector3.right * _lookDir, 48.0f, _layerPlayer);
 
             // Debug.DrawRay(animator.transform.position, (Vector3.right * _lookDir * 2.0f + Vector3.down) * 18, Color.red);
+            // Debug.DrawRay(animator.transform.position, (Vector3.right * _lookDir) * 16, Color.red);
 
             if (groundCheck.collider != null)
             {
@@ -68,20 +71,25 @@ public class EnemyWalk : StateMachineBehaviour
             }
             else
             {
-                _renderer.flipX = !_renderer.flipX;
-                _lookDir = _lookDir == 1 ? -1 : 1;
+                ChangeDirection();
             }
 
             if (wallCheck.collider != null)
-            {
-                _renderer.flipX = !_renderer.flipX;
-                _lookDir = _lookDir == 1 ? -1 : 1;
-            }
+                ChangeDirection();
+
+            if (interactCheck.collider != null)
+                ChangeDirection();
         }
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
     {
         animator.SetBool("isPatrolling", false);
+    }
+
+    private void ChangeDirection()
+    {
+        _renderer.flipX = !_renderer.flipX;
+        _lookDir = _lookDir == 1 ? -1 : 1;
     }
 }

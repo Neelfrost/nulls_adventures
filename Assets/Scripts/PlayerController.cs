@@ -33,7 +33,33 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        //Jump
+        Jump();
+        Attack();
+        FlipSprite();
+        ChangeAnimations();
+    }
+
+
+    private void FixedUpdate()
+    {
+        // Check for ground
+        _isGrounded = Physics2D.OverlapCircle(_groundCheck_L.position, 0.75f, _layerGround) || Physics2D.OverlapCircle(_groundCheck_R.position, 0.75f, _layerGround);
+
+        _inputHorizontal = Input.GetAxisRaw("Horizontal");
+        Vector2 targetVelocity = new Vector2(_inputHorizontal * speed * 60.0f * Time.fixedDeltaTime, _body.velocity.y);
+        _body.velocity = targetVelocity;
+    }
+    private void Attack()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            _animator.SetTrigger("Attack");
+            Interact();
+        }
+    }
+
+    private void Jump()
+    {
         if (Input.GetButtonDown("Jump") && _isGrounded)
         {
             _body.velocity = Vector2.up * jumpSpeed;
@@ -43,27 +69,6 @@ public class PlayerController : MonoBehaviour
             _body.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         else if (_body.velocity.y > 1.5f && !Input.GetButton("Jump"))
             _body.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
-
-        //Attack
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            _animator.SetTrigger("Attack");
-            Interact();
-        }
-
-        FlipSprite();
-        ChangeAnimations();
-    }
-
-    private void FixedUpdate()
-    {
-        //Check for ground
-        _isGrounded = Physics2D.OverlapCircle(_groundCheck_L.position, 0.75f, _layerGround) || Physics2D.OverlapCircle(_groundCheck_R.position, 0.75f, _layerGround);
-
-        //Move player smoothly 
-        _inputHorizontal = Input.GetAxisRaw("Horizontal");
-        Vector2 targetVelocity = new Vector2(_inputHorizontal * speed * 60.0f * Time.fixedDeltaTime, _body.velocity.y);
-        _body.velocity = targetVelocity;
     }
 
     private void FlipSprite()
@@ -106,18 +111,18 @@ public class PlayerController : MonoBehaviour
 
     private void Interact()
     {
-        //Cast a ray to check for interactables
+        // Cast a ray to check for interactables
         RaycastHit2D interactable = Physics2D.Raycast(transform.position, Vector2.right * _lookDir, 16.0f, _layerInteract);
 
         if (interactable.collider != null)
         {
-            //Here we call the respective methods
+            // Here we call the respective methods
             if (interactable.collider.CompareTag("Fire"))
                 interactable.collider.GetComponent<NullFire>().Shoot(_lookDir);
             else if (interactable.collider.CompareTag("Redirector"))
                 interactable.collider.GetComponentInParent<Redirector>().Rotate();
             else if (interactable.collider.CompareTag("Enemy"))
-                interactable.collider.GetComponent<Enemy>().Damage(1.1f);
+                interactable.collider.GetComponent<Enemy>().Damage(Random.Range(1.0f, 2.0f));
         }
     }
 }

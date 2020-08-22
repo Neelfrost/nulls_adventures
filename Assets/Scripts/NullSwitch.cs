@@ -4,7 +4,7 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 public class NullSwitch : MonoBehaviour
 {
-    public GameObject[] target;
+    public GameObject[] targets;
     private Animator _animator;
 
     private Light2D _light;
@@ -22,16 +22,19 @@ public class NullSwitch : MonoBehaviour
             _animator.SetTrigger("isActive");
             _light.enabled = true;
 
-            if (target != null)
+            if (targets != null)
                 StartCoroutine(Activate());
         }
     }
 
     IEnumerator Activate()
     {
-        foreach (GameObject platform in target)
+        foreach (var target in targets)
         {
-            platform.GetComponent<Platform>().Activate();
+            if (target.CompareTag("Beacon"))
+                target.GetComponent<Beacon>().Activate();
+            else if (target.CompareTag("Platform"))
+                target.GetComponent<Platform>().Activate();
             yield return new WaitForSeconds(0.2f);
         }
     }

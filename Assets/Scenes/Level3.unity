@@ -2924,7 +2924,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7650539025102784845, guid: 34247cdbc47c7a1468a19cea32848f08, type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 140
+      value: 142
       objectReference: {fileID: 0}
     - target: {fileID: 7650539025102784845, guid: 34247cdbc47c7a1468a19cea32848f08, type: 3}
       propertyPath: m_textInfo.spaceCount
@@ -2944,10 +2944,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7650539025102784845, guid: 34247cdbc47c7a1468a19cea32848f08, type: 3}
       propertyPath: m_text
-      value: 'Press F to make Null Attack.
+      value: 'Press F to make Null attack.
 
-        You''ll have to defeat the Sentries
-        to spawn Kinetic Blocks. Sentries can shoot at you only if they can see you.'
+        Null has to defeat the Sentries
+        to spawn Kinetic Blocks. Be careful, Sentries can shoot Null if they can
+        see him.'
       objectReference: {fileID: 0}
     - target: {fileID: 7650539025102784845, guid: 34247cdbc47c7a1468a19cea32848f08, type: 3}
       propertyPath: m_firstOverflowCharacterIndex

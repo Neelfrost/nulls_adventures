@@ -6,7 +6,7 @@ public class EnemyChase : StateMachineBehaviour
 {
     private Rigidbody2D _body;
     private SpriteRenderer _renderer;
-    private LayerMask _layerGround;
+    private LayerMask _layerGround, _layerInteract;
     private GameObject _player;
 
 
@@ -28,6 +28,7 @@ public class EnemyChase : StateMachineBehaviour
             _body = animator.GetComponent<Rigidbody2D>();
             _renderer = animator.GetComponent<SpriteRenderer>();
             _layerGround = LayerMask.GetMask("Ground");
+            _layerInteract = LayerMask.GetMask("Interact");
             _isInstantiated = true;
         }
 
@@ -38,6 +39,8 @@ public class EnemyChase : StateMachineBehaviour
     {
         RaycastHit2D groundCheck = Physics2D.Raycast(animator.transform.position, Vector3.right * _lookDir * 2.0f + Vector3.down, 18.0f, _layerGround);
         RaycastHit2D wallCheck = Physics2D.Raycast(animator.transform.position, Vector3.right * _lookDir, 16.0f, _layerGround);
+        RaycastHit2D interactCheck = Physics2D.Raycast(animator.transform.position, Vector3.right * _lookDir, 16.0f, _layerInteract);
+
 
         Vector2 toPlayer = _player.transform.position - animator.transform.position;
 
@@ -61,14 +64,14 @@ public class EnemyChase : StateMachineBehaviour
                 animator.SetBool("isPatrolling", true);
         }
         else
-        {
             _lookDir = _lookDir == 1 ? -1 : 1;
-        }
 
         if (wallCheck.collider != null)
-        {
             _lookDir = _lookDir == 1 ? -1 : 1;
-        }
+
+        if (interactCheck.collider != null)
+            _lookDir = _lookDir == 1 ? -1 : 1;
+
 
         _renderer.flipX = _lookDir == 1 ? false : true;
     }

@@ -10,12 +10,6 @@ public class Beacon : MonoBehaviour
         StartCoroutine(StartActivating());
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Keypad0))
-            Activate();
-    }
-
     IEnumerator StartActivating()
     {
         foreach (SpriteRenderer sprite in _sprites)
@@ -24,6 +18,6 @@ public class Beacon : MonoBehaviour
             yield return new WaitForSeconds(1.0f / 6.0f);
         }
         yield return new WaitForSeconds(5.0f);
-        // GameManager.Instance.LoadScene();
+        GameManager.Instance.LoadScene();
     }
 }
