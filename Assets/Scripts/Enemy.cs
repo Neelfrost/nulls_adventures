@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     public GameObject projectile;
     private Slider _slider;
     private Color _originalColor;
+    private Animator _animatorEnemy;
     private SpriteRenderer _renderer;
 
     private float _maxHealth = 10;
@@ -26,6 +27,7 @@ public class Enemy : MonoBehaviour
         _slider.maxValue = _maxHealth;
         _slider.value = _currentHealth;
 
+        _animatorEnemy = GetComponent<Animator>();
         _renderer = GetComponent<SpriteRenderer>();
         _originalColor = _renderer.color;
 
@@ -36,7 +38,10 @@ public class Enemy : MonoBehaviour
         _slider.value = _currentHealth;
 
         if (_currentHealth <= 0)
+        {
+            GameManager.Instance.enemyCount--;
             Destroy(gameObject);
+        }
 
     }
 
@@ -50,7 +55,8 @@ public class Enemy : MonoBehaviour
         }
 
         // Alert the enemy if damaged
-        GetComponent<Animator>().SetBool("isAttacking", true);
+        if (!_animatorEnemy.GetCurrentAnimatorStateInfo(0).IsName("Sentry_Attack"))
+            _animatorEnemy.SetBool("isAttacking", true);
     }
     IEnumerator Flash()
     {

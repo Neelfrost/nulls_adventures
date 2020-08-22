@@ -53,9 +53,11 @@ public class EnemyWalk : StateMachineBehaviour
         }
         else
         {
-            RaycastHit2D groundCheck = Physics2D.Raycast(animator.transform.position, Vector3.right * _lookDir + Vector3.down, 16.0f, _layerGround);
+            RaycastHit2D groundCheck = Physics2D.Raycast(animator.transform.position, Vector3.right * _lookDir * 2.0f + Vector3.down, 18.0f, _layerGround);
             RaycastHit2D wallCheck = Physics2D.Raycast(animator.transform.position, Vector3.right * _lookDir, 16.0f, _layerGround);
             RaycastHit2D playerCheck = Physics2D.Raycast(animator.transform.position, Vector3.right * _lookDir, 48.0f, _layerPlayer);
+
+            // Debug.DrawRay(animator.transform.position, (Vector3.right * _lookDir * 2.0f + Vector3.down) * 18, Color.red);
 
             if (groundCheck.collider != null)
             {

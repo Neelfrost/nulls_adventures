@@ -36,7 +36,7 @@ public class EnemyChase : StateMachineBehaviour
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        RaycastHit2D groundCheck = Physics2D.Raycast(animator.transform.position, Vector3.right * _lookDir + Vector3.down, 16.0f, _layerGround);
+        RaycastHit2D groundCheck = Physics2D.Raycast(animator.transform.position, Vector3.right * _lookDir * 2.0f + Vector3.down, 18.0f, _layerGround);
         RaycastHit2D wallCheck = Physics2D.Raycast(animator.transform.position, Vector3.right * _lookDir, 16.0f, _layerGround);
 
         Vector2 toPlayer = _player.transform.position - animator.transform.position;

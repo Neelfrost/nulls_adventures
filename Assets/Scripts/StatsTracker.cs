@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StatsTracker : Singleton<StatsTracker>
 {
-    public float maxHealth = 10;
+    public float maxHealth = 15;
     public float currentHealth;
 
     private void Awake()

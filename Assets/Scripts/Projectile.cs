@@ -4,7 +4,7 @@ public class Projectile : MonoBehaviour
 {
     public float speed;
     private float _timer;
-    private float _maxLife = 5.0f;
+    private float _maxLife = 2.0f;
     private Rigidbody2D _body;
 
     private void Awake()
