@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    private int _currentScene = 1;
     private GameObject[] _enemies;
     public int enemyCount;
 
@@ -15,7 +14,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
-        if (_currentScene == 3 && enemyCount == 1)
+        if (SceneManager.GetActiveScene().buildIndex == 3 && enemyCount == 1)
         {
             GameObject[] spouts = GameObject.FindGameObjectsWithTag("Spout");
             foreach (var spout in spouts)
@@ -25,16 +24,20 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public void LoadScene()
+    public void LoadScene(int Level)
+    {
+        SceneManager.LoadScene(Level);
+    }
+
+    public void LoadNext()
     {
         SaveCurrentStats();
-
-        _currentScene++;
-        SceneManager.LoadScene(_currentScene);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     private void SaveCurrentStats()
     {
-        StatsTracker.Instance.currentHealth = PlayerStats.Instance.currentHealth;
+        if (PlayerStats.Instance != null)
+            StatsTracker.Instance.currentHealth = PlayerStats.Instance.currentHealth;
     }
 }
