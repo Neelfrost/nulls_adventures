@@ -9,8 +9,8 @@ public class PlayerStats : MonoBehaviour
     private Color _originalColor;
     private SpriteRenderer _renderer;
 
+    public float maxHealth;
     public float currentHealth;
-    private float _maxHealth;
     private bool _invulnerable;
 
     private void Start()
@@ -22,10 +22,10 @@ public class PlayerStats : MonoBehaviour
 
         _originalColor = _renderer.color; // Get a reference to sprite's original color, used later for blink on damage
 
-        _maxHealth = StatsTracker.Instance.maxHealth;
+        maxHealth = StatsTracker.Instance.maxHealth;
         currentHealth = StatsTracker.Instance.currentHealth;
 
-        _slider.maxValue = _maxHealth;
+        _slider.maxValue = maxHealth;
         _slider.value = currentHealth;
     }
 
@@ -33,8 +33,8 @@ public class PlayerStats : MonoBehaviour
     {
         _slider.value = currentHealth;
 
-        if (Input.GetKeyDown(KeyCode.Keypad0))
-            Damage(1.0f);
+        if (currentHealth <= 0)
+            GameManager.Instance.ReloadScene();
     }
 
     public void Heal(float amount)

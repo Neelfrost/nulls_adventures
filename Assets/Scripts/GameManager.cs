@@ -35,6 +35,13 @@ public class GameManager : Singleton<GameManager>
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        PlayerStats.Instance.currentHealth = 0.75f * PlayerStats.Instance.maxHealth;
+        SaveCurrentStats();
+    }
+
     private void SaveCurrentStats()
     {
         if (PlayerStats.Instance != null)
