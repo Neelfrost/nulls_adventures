@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5640173918725849928}
   - component: {fileID: 5640173918725850036}
   - component: {fileID: 8224605809968518525}
+  - component: {fileID: 7051099553683257849}
   m_Layer: 0
   m_Name: Pixel Camera
   m_TagString: MainCamera
@@ -163,6 +164,14 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!81 &7051099553683257849
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5640173918725849929}
+  m_Enabled: 1
 --- !u!1 &5762212105102135549
 GameObject:
   m_ObjectHideFlags: 0

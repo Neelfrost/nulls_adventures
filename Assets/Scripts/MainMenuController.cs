@@ -4,7 +4,7 @@ public class MainMenuController : MonoBehaviour
 {
     public void PlayButton()
     {
-        GameManager.Instance.LoadNext();
+        GameObject.FindGameObjectWithTag("Transition").GetComponent<Transition>().LoadNextLevel();
     }
 
     public void QuitButton()
@@ -14,6 +14,6 @@ public class MainMenuController : MonoBehaviour
 
     public void LevelSelectButton(int Level)
     {
-        GameManager.Instance.LoadScene(Level);
+        GameObject.FindGameObjectWithTag("Transition").GetComponent<Transition>().LoadLevel(Level);
     }
 }
