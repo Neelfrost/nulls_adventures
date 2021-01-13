@@ -6,15 +6,12 @@ public class GameManager : Singleton<GameManager>
     private GameObject[] _enemies;
     public int enemyCount;
 
-    private void Start()
+    private void Update()
     {
         _enemies = GameObject.FindGameObjectsWithTag("Enemy");
         enemyCount = _enemies.Length;
-    }
 
-    private void Update()
-    {
-        if (SceneManager.GetActiveScene().buildIndex == 3 && enemyCount == 1)
+        if (SceneManager.GetActiveScene().buildIndex == 3 && enemyCount == 0)
         {
             GameObject[] spouts = GameObject.FindGameObjectsWithTag("Spout");
             foreach (var spout in spouts)
